@@ -64,6 +64,17 @@ module.exports = class OpenBinance {
   };
 
   /**
+   * Fetch account api trading status detail.
+   * @returns { Object }
+   */
+  apiTradingStatus = () => {
+    this.authDataRequire();
+
+    return this.signedRequest(endpoints.sapi + "v1/account/apiTradingStatus", {}, "GET");
+  };
+
+
+  /**
    * Fetch account status detail.
    * @returns { Object }
    */
