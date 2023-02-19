@@ -14,10 +14,54 @@ module.exports = class OpenBinance {
     };
   }
 
+  // ----------- Market Data Endpoints ---------
+
   /**
-   * Fetch details of assets supported on Binance.   
-   * https://binance-docs.github.io/apidocs/spot/en/#asset-detail-user_data
+   * Test connectivity to the Rest API.
+   */
+  ping() {
+    return this.publicRequest(endpoints.base + "v3/ping", {}, "GET");
+  }
+
+  /**
+   * Test connectivity to the Rest API and get the current server time.
+   * @returns { Object }  
+   */
+  checkServerTime(){
+    return this.publicRequest(endpoints.base + "v3/time", {}, "GET");
+  }
+
+  /**
+   * Current exchange trading rules and symbol information
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#exchange-information
    * @returns 
+   */
+  exchangeInfo(options = {}){
+    return this.publicRequest(endpoints.base + "v3/exchangeInfo", options, "GET");
+  }
+
+   /**
+   * Order Book
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#order-book
+   * @returns 
+   */
+   depth(symbol, limit = 100){
+    return this.publicRequest(endpoints.base + "v3/depth", {symbol, limit}, "GET");
+  }
+
+   /**
+   * Get recent trades.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#recent-trades-list
+   * @returns 
+   */
+   trades(symbol, limit = 500){
+    return this.publicRequest(endpoints.base + "v3/trades", {symbol, limit}, "GET");
+  }
+
+  /**
+   * Fetch details of assets supported on Binance.
+   * https://binance-docs.github.io/apidocs/spot/en/#asset-detail-user_data
+   * @returns
    */
   assetDetail = () => {
     this.authDataRequire();
@@ -28,7 +72,6 @@ module.exports = class OpenBinance {
       "GET"
     );
   };
-
 
   /**
    * Get user assets, just for positive data.
@@ -41,14 +84,13 @@ module.exports = class OpenBinance {
 
     return this.signedRequest(
       endpoints.sapi + "v3/asset/getUserAsset",
-      {needBtcValuation, ...options},
+      { needBtcValuation, ...options },
       "POST"
     );
   };
 
-
   /**
-   * Get API Key Permission (USER_DATA)   
+   * Get API Key Permission (USER_DATA)
    * https://binance-docs.github.io/apidocs/spot/en/#get-api-key-permission-user_data
    * @returns { Object }
    */
@@ -57,12 +99,10 @@ module.exports = class OpenBinance {
 
     return this.signedRequest(
       endpoints.sapi + "v1/account/apiRestrictions",
-      {...options},
+      { ...options },
       "GET"
     );
   };
-
-
 
   /**
    * Fetch deposit history.
@@ -233,6 +273,39 @@ module.exports = class OpenBinance {
       throw Error(`Open Binance Error: Invalid API Secret`);
   }
 
+  /**
+   * Public request
+   * @param {*} url 
+   * @param {*} data 
+   * @param {*} method 
+   * @returns 
+   */
+  publicRequest(url, data, method = "GET") {
+    let query = makeQueryString(data);
+
+    let opt =
+      method === "POST"
+        ? reqObjectPost(url, data, method, this.options)
+        : reqObject(url + "?" + query, data, method, this.options);
+
+    return new Promise((res) => {
+      request(opt, (err, response, body) => {
+        if (err) throw Error(err);
+
+        if (response.statusCode !== 200) throw Error(body);
+
+        res(JSON.parse(body));
+      });
+    });
+  }
+
+  /**
+   * Signed Request
+   * @param {*} url 
+   * @param {*} data 
+   * @param {*} method 
+   * @returns 
+   */
   signedRequest(url, data, method = "GET") {
     data.timestamp = new Date().getTime() + this.options.timeOffset;
 
@@ -257,8 +330,8 @@ module.exports = class OpenBinance {
 
     return new Promise((res) => {
       request(opt, (err, response, body) => {
-        if (err) throw Error(err);        
-        
+        if (err) throw Error(err);
+
         if (response.statusCode !== 200) throw Error(body);
 
         res(JSON.parse(body));
