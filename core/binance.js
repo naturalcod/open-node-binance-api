@@ -16,6 +16,7 @@ module.exports = class OpenBinance {
 
   /**
    * Fetch details of assets supported on Binance.   
+   * https://binance-docs.github.io/apidocs/spot/en/#asset-detail-user_data
    * @returns 
    */
   assetDetail = () => {
@@ -25,6 +26,22 @@ module.exports = class OpenBinance {
       endpoints.sapi + "v1/asset/assetDetail",
       {},
       "GET"
+    );
+  };
+
+
+  /**
+   * Get user assets, just for positive data.
+   * https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data
+   * @returns 
+   */
+  getUserAsset = (needBtcValuation = true, options = {}) => {
+    this.authDataRequire();
+
+    return this.signedRequest(
+      endpoints.sapi + "v3/asset/getUserAsset",
+      {needBtcValuation, ...options},
+      "POST"
     );
   };
 
@@ -221,8 +238,8 @@ module.exports = class OpenBinance {
 
     return new Promise((res) => {
       request(opt, (err, response, body) => {
-        if (err) throw Error(err);
-
+        if (err) throw Error(err);        
+        
         if (response.statusCode !== 200) throw Error(body);
 
         res(JSON.parse(body));
