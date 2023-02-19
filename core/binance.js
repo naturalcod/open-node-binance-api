@@ -33,13 +33,11 @@ module.exports = class OpenBinance {
         offset,
         limit,
         txId,
-        ...options
+        ...options,
       },
       "GET"
     );
   };
-
-
 
   /**
    * Fetch deposit history.
@@ -59,10 +57,20 @@ module.exports = class OpenBinance {
         status,
         offset,
         limit,
-        ...options
+        ...options,
       },
       "GET"
     );
+  };
+
+  /**
+   * Fetch account status detail.
+   * @returns { Object }
+   */
+  accountStatus = () => {
+    this.authDataRequire();
+    
+    return this.signedRequest(endpoints.sapi + "v1/account/status", {}, "GET");
   };
 
   /**
@@ -140,7 +148,7 @@ module.exports = class OpenBinance {
         amount,
         name: encodeURIComponent(name.trim()),
         walletType,
-        ...options
+        ...options,
       },
       "POST"
     );
