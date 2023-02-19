@@ -31,9 +31,34 @@ module.exports = class OpenBinance {
         coin,
         status,
         offset,
-        offset,
         limit,
         txId,
+      },
+      "GET"
+    );
+  };
+
+
+
+  /**
+   * Fetch deposit history.
+   * @param {*} coin - Name of coin - Example : USDT
+   * @param {*} status  - Status of transaction - (0:Email Sent,1:Cancelled 2:Awaiting Approval 3:Rejected 4:Processing 5:Failure 6:Completed)
+   * @param {*} offset
+   * @param {*} limit
+   * @param {*} txId
+   * @returns
+   */
+  withdrawHistory = (coin, status, offset, limit, options = {}) => {
+    this.authDataRequire();
+    return this.signedRequest(
+      endpoints.sapi + "v1/capital/withdraw/history",
+      {
+        coin,
+        status,
+        offset,
+        limit,
+        ...options
       },
       "GET"
     );
