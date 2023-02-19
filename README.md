@@ -3,7 +3,7 @@
 # Binance Api Client
 NodeJS Binance API Client
 # Install
-`npm i binance-api-nodejs`
+`npm i open-binance-api`
 
 # Usage
 
