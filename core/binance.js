@@ -23,7 +23,7 @@ module.exports = class OpenBinance {
    * @param {*} txId
    * @returns
    */
-  depositHistory = (coin, status, offset, limit, txId) => {
+  depositHistory = (coin, status, offset, limit, txId, options = {}) => {
     this.authDataRequire();
     return this.signedRequest(
       endpoints.sapi + "v1/capital/deposit/hisrec",
@@ -33,6 +33,7 @@ module.exports = class OpenBinance {
         offset,
         limit,
         txId,
+        ...options
       },
       "GET"
     );
@@ -112,10 +113,10 @@ module.exports = class OpenBinance {
    * @param {*} amount - amount of the asset
    * @returns
    */
-  universalTransfer = (type, asset, amount) =>
+  universalTransfer = (type, asset, amount, options = {}) =>
     this.signedRequest(
       endpoints.sapi + "v1/asset/transfer",
-      { type, asset, amount },
+      { type, asset, amount, ...options },
       "POST"
     );
 
@@ -129,7 +130,7 @@ module.exports = class OpenBinance {
    * @param {Number} walletType  - 0-spot wallet | 1-funding wallet
    * @returns {Object}
    */
-  withdraw = (coin, network, address, amount, name, walletType) =>
+  withdraw = (coin, network, address, amount, name, walletType, options = {}) =>
     this.signedRequest(
       endpoints.sapi + "v1/capital/withdraw/apply",
       {
@@ -139,6 +140,7 @@ module.exports = class OpenBinance {
         amount,
         name: encodeURIComponent(name.trim()),
         walletType,
+        ...options
       },
       "POST"
     );
