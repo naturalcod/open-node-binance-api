@@ -1,6 +1,6 @@
 {
   "name": "open-binance-api",
-  "version": "1.0.4",
+  "version": "1.0.7",
   "description": "Binance API Client",
   "dependencies": {
     "crypto": "^1.0.1",
@@ -12,5 +12,21 @@
     "url": "git+https://github.com/naturalcod/open-node-binance-api"
   },
   "author": "naturalcode",
-  "licenses": "MIT"
+  "licenses": "MIT",
+  "keywords": [
+    "binance",
+    "binance api",    
+    "binance spot api",    
+    "api",
+    "rest",
+    "rest api",
+    "usdt",
+    "trading bots",
+    "nodejs",
+    "node",
+    "trading",
+    "cryptocurrency",
+    "bitcoin",
+    "best"
+  ]
 }

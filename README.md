@@ -11,9 +11,30 @@ NodeJS Binance API Client
 ```javascript
 const OpenBinance = require("open-binance-api");
 
-let binance_client = new OpenBinance(
+let OBinance = new OpenBinance(
   "API_KEY",
   "SECRET_KEY"
 );
 
+```
+
+# Account/Wallet
+
+##### Get Api Restrictions
+
+```javascript
+OBinance.apiRestrictions().then((result) => {
+    console.log("apiRestrictions Result", result);
+}).catch((err) => {
+    console.log("apiRestrictions Error: ", err);
+});
+```
+
+##### Get Trade Fee
+```javascript
+OBinance.tradeFee("BTCUSDT").then((result) => {
+  console.log("tradeFee Result", result);
+}).catch((err) => {
+  console.log("tradeFee Error: ", err);
+});
 ```
