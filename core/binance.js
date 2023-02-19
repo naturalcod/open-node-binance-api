@@ -32,8 +32,9 @@ module.exports = class OpenBinance {
 
   /**
    * Get user assets, just for positive data.
+   * User Asset (USER_DATA)
    * https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data
-   * @returns 
+   * @returns { Object }
    */
   getUserAsset = (needBtcValuation = true, options = {}) => {
     this.authDataRequire();
@@ -44,6 +45,24 @@ module.exports = class OpenBinance {
       "POST"
     );
   };
+
+
+  /**
+   * Get API Key Permission (USER_DATA)   
+   * https://binance-docs.github.io/apidocs/spot/en/#get-api-key-permission-user_data
+   * @returns { Object }
+   */
+  apiRestrictions = (options = {}) => {
+    this.authDataRequire();
+
+    return this.signedRequest(
+      endpoints.sapi + "v1/account/apiRestrictions",
+      {...options},
+      "GET"
+    );
+  };
+
+
 
   /**
    * Fetch deposit history.
