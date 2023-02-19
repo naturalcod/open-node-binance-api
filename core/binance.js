@@ -15,6 +15,20 @@ module.exports = class OpenBinance {
   }
 
   /**
+   * Fetch details of assets supported on Binance.   
+   * @returns 
+   */
+  assetDetail = () => {
+    this.authDataRequire();
+
+    return this.signedRequest(
+      endpoints.sapi + "v1/asset/assetDetail",
+      {},
+      "GET"
+    );
+  };
+
+  /**
    * Fetch deposit history.
    * @param {*} coin - Name of coin - Example : USDT
    * @param {*} status  - Status of transaction - 0:pending,6: credited but cannot withdraw, 1:success
@@ -70,9 +84,12 @@ module.exports = class OpenBinance {
   apiTradingStatus = () => {
     this.authDataRequire();
 
-    return this.signedRequest(endpoints.sapi + "v1/account/apiTradingStatus", {}, "GET");
+    return this.signedRequest(
+      endpoints.sapi + "v1/account/apiTradingStatus",
+      {},
+      "GET"
+    );
   };
-
 
   /**
    * Fetch account status detail.
@@ -80,7 +97,7 @@ module.exports = class OpenBinance {
    */
   accountStatus = () => {
     this.authDataRequire();
-    
+
     return this.signedRequest(endpoints.sapi + "v1/account/status", {}, "GET");
   };
 
