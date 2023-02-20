@@ -25,134 +25,228 @@ module.exports = class OpenBinance {
 
   /**
    * Test connectivity to the Rest API and get the current server time.
-   * @returns { Object }  
+   * @returns { Object }
    */
-  checkServerTime(){
+  checkServerTime() {
     return this.publicRequest(endpoints.base + "v3/time", {}, "GET");
   }
 
   /**
    * Current exchange trading rules and symbol information
    * Detail https://binance-docs.github.io/apidocs/spot/en/#exchange-information
-   * @returns 
+   * @returns
    */
-  exchangeInfo(options = {}){
-    return this.publicRequest(endpoints.base + "v3/exchangeInfo", options, "GET");
+  exchangeInfo(options = {}) {
+    return this.publicRequest(
+      endpoints.base + "v3/exchangeInfo",
+      options,
+      "GET"
+    );
   }
 
-   /**
+  /**
    * Order Book
    * Detail https://binance-docs.github.io/apidocs/spot/en/#order-book
-   * @returns 
+   * @returns
    */
-   depth(symbol, limit = 100){
-    return this.publicRequest(endpoints.base + "v3/depth", {symbol, limit}, "GET");
+  depth(symbol, limit = 100) {
+    return this.publicRequest(
+      endpoints.base + "v3/depth",
+      { symbol, limit },
+      "GET"
+    );
   }
 
-   /**
+  /**
    * Get recent trades.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#recent-trades-list
-   * @returns 
+   * @returns
    */
-   trades(symbol, limit = 500){
-    return this.publicRequest(endpoints.base + "v3/trades", {symbol, limit}, "GET");
+  trades(symbol, limit = 500) {
+    return this.publicRequest(
+      endpoints.base + "v3/trades",
+      { symbol, limit },
+      "GET"
+    );
   }
 
-
-   /**
+  /**
    * Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#compressed-aggregate-trades-list
-   * @returns 
+   * @returns
    */
-   aggTrades(symbol, options = {}){
-    return this.publicRequest(endpoints.base + "v3/aggTrades", {symbol, ...options}, "GET");
+  aggTrades(symbol, options = {}) {
+    return this.publicRequest(
+      endpoints.base + "v3/aggTrades",
+      { symbol, ...options },
+      "GET"
+    );
   }
-
 
   /**
    * Kline/candlestick bars for a symbol.
    * Klines are uniquely identified by their open time.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-data
-   * @returns 
+   * @returns
    */
-  klines(symbol, interval = '1m', options = {}){
-    return this.publicRequest(endpoints.base + "v3/klines", {symbol, interval, ...options}, "GET");
+  klines(symbol, interval = "1m", options = {}) {
+    return this.publicRequest(
+      endpoints.base + "v3/klines",
+      { symbol, interval, ...options },
+      "GET"
+    );
   }
-
 
   /**
    * Kline/candlestick bars for a symbol.
    * Klines are uniquely identified by their open time.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#uiklines
-   * @returns 
+   * @returns
    */
-  UIKlines(symbol, interval = '1m', options = {}){
-    return this.publicRequest(endpoints.base + "v3/uiKlines", {symbol, interval, ...options}, "GET");
+  UIKlines(symbol, interval = "1m", options = {}) {
+    return this.publicRequest(
+      endpoints.base + "v3/uiKlines",
+      { symbol, interval, ...options },
+      "GET"
+    );
   }
-
 
   /**
    * Kline/candlestick bars for a symbol.
    * Klines are uniquely identified by their open time.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#current-average-price
-   * @returns 
+   * @returns
    */
-  avgPrice(symbol, options = {}){
-    return this.publicRequest(endpoints.base + "v3/avgPrice", {symbol, ...options}, "GET");
+  avgPrice(symbol, options = {}) {
+    return this.publicRequest(
+      endpoints.base + "v3/avgPrice",
+      { symbol, ...options },
+      "GET"
+    );
   }
 
-
   /**
-   * 24 hour rolling window price change statistics. Careful when accessing this with no symbol.   
+   * 24 hour rolling window price change statistics. Careful when accessing this with no symbol.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#24hr-ticker-price-change-statistics
-   * @returns 
+   * @returns
    */
-  tickerPrice24hr(symbols = ['BTCUSDT'], options = {}){
+  tickerPrice24hr(symbols = ["BTCUSDT"], options = {}) {
+    if (typeof symbols === "string") symbols = [symbols];
 
-    if(typeof symbols === 'string') symbols = [symbols];
-    
-    return this.publicRequest(endpoints.base + "v3/ticker/24hr", {symbols: JSON.stringify(symbols), ...options}, "GET");
+    return this.publicRequest(
+      endpoints.base + "v3/ticker/24hr",
+      { symbols: JSON.stringify(symbols), ...options },
+      "GET"
+    );
   }
-
 
   /**
-   * Latest price for a symbol or symbols.   
+   * Latest price for a symbol or symbols.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#symbol-price-ticker
-   * @returns 
+   * @returns
    */
-  latestPrice(symbols = ['BTCUSDT'], options = {}){
+  latestPrice(symbols = ["BTCUSDT"], options = {}) {
+    if (typeof symbols === "string") symbols = [symbols];
 
-    if(typeof symbols === 'string') symbols = [symbols];
-    
-    return this.publicRequest(endpoints.base + "v3/ticker/price", {symbols: JSON.stringify(symbols), ...options}, "GET");
+    return this.publicRequest(
+      endpoints.base + "v3/ticker/price",
+      { symbols: JSON.stringify(symbols), ...options },
+      "GET"
+    );
   }
-
 
   /**
    * Best price/qty on the order book for a symbol or symbols.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#symbol-order-book-ticker
-   * @returns 
+   * @returns
    */
-  bookTicker(symbols = ['BTCUSDT'], options = {}){
+  bookTicker(symbols = ["BTCUSDT"], options = {}) {
+    if (typeof symbols === "string") symbols = [symbols];
 
-    if(typeof symbols === 'string') symbols = [symbols];
-    
-    return this.publicRequest(endpoints.base + "v3/ticker/bookTicker", {symbols: JSON.stringify(symbols), ...options}, "GET");
+    return this.publicRequest(
+      endpoints.base + "v3/ticker/bookTicker",
+      { symbols: JSON.stringify(symbols), ...options },
+      "GET"
+    );
   }
-
 
   /**
    * Note: This endpoint is different from the tickerPrice24hr() method.
    * The window used to compute statistics will be no more than 59999ms from the requested windowSize.
    * Detail https://binance-docs.github.io/apidocs/spot/en/#rolling-window-price-change-statistics
-   * @returns 
+   * @returns
    */
-  computeStatistics (symbols = ['BTCUSDT'], windowSize = '1d', options = {}){
+  computeStatistics(symbols = ["BTCUSDT"], windowSize = "1d", options = {}) {
+    if (typeof symbols === "string") symbols = [symbols];
 
-    if(typeof symbols === 'string') symbols = [symbols];
-    
-    return this.publicRequest(endpoints.base + "v3/ticker", {symbols: JSON.stringify(symbols), windowSize, ...options}, "GET");
+    return this.publicRequest(
+      endpoints.base + "v3/ticker",
+      { symbols: JSON.stringify(symbols), windowSize, ...options },
+      "GET"
+    );
   }
+
+  // ----------- END Market Data Endpoints ---------
+
+  // ----------- Spot Account/Trade Endpoints ---------
+
+  /**
+   * Test new order creation and signature/recvWindow long. Creates and validates a new order but does not send it into the matching engine.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#test-new-order-trade
+   * @param {String} symbol
+   * @param {String} side
+   * @param {String} type
+   * @param {Number} quantity
+   * @param {Number} timeInForce
+   * @param {Object} options
+   * @returns
+   */
+
+  testNewOrder(symbol, side, type, quantity, timeInForce, options = {}) {
+    if (type === "MARKET" && timeInForce !== undefined) timeInForce = undefined;
+
+    return this.signedRequest(
+      endpoints.base + "v3/order/test",
+      { symbol, side, type, timeInForce, quantity, ...options },
+      "POST"
+    );
+  }
+
+  /**
+   * SPOT : MarketBuy   
+   * @param {String} symbol  
+   * @param {Number} quantity   
+   * @param {*} options
+   * @returns
+   */
+
+  spotMarketBuy(symbol, quantity, options = {}) {
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, side: "BUY", type: "MARKET", quantity, ...options },
+      "POST"
+    );
+  }
+
+
+   /**
+   * SPOT : MarketSell   
+   * @param {String} symbol  
+   * @param {Number} quantity   
+   * @param {*} options
+   * @returns
+   */
+
+   spotMarketSell(symbol, quantity, options = {}) {
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, side: "SELL", type: "MARKET", quantity, ...options },
+      "POST"
+    );
+  }
+
+
+  // ----------- End Spot Account/Trade Endpoints ---------
 
   /**
    * Fetch details of assets supported on Binance.
@@ -371,10 +465,10 @@ module.exports = class OpenBinance {
 
   /**
    * Public request
-   * @param {*} url 
-   * @param {*} data 
-   * @param {*} method 
-   * @returns 
+   * @param {*} url
+   * @param {*} data
+   * @param {*} method
+   * @returns
    */
   publicRequest(url, data, method = "GET") {
     let query = makeQueryString(data);
@@ -385,8 +479,6 @@ module.exports = class OpenBinance {
         : reqObject(url + "?" + query, data, method, this.options);
 
     return new Promise((res) => {
-
-      console.log(opt)
       request(opt, (err, response, body) => {
         if (err) throw Error(err);
 
@@ -399,10 +491,10 @@ module.exports = class OpenBinance {
 
   /**
    * Signed Request
-   * @param {*} url 
-   * @param {*} data 
-   * @param {*} method 
-   * @returns 
+   * @param {*} url
+   * @param {*} data
+   * @param {*} method
+   * @returns
    */
   signedRequest(url, data, method = "GET") {
     data.timestamp = new Date().getTime() + this.options.timeOffset;

@@ -1,6 +1,6 @@
 {
   "name": "open-binance-api",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Binance API Client",
   "dependencies": {
     "crypto": "^1.0.1",
