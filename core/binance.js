@@ -112,8 +112,7 @@ module.exports = class OpenBinance {
   }
 
   /**
-   * Kline/candlestick bars for a symbol.
-   * Klines are uniquely identified by their open time.
+   * Current average price for a symbol   
    * Detail https://binance-docs.github.io/apidocs/spot/en/#current-average-price
    * @returns
    */
