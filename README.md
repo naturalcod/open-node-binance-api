@@ -172,3 +172,52 @@ OBinance.computeStatistics(["BTCUSDT"]).then((result) => {
 });
 
 ```
+
+
+# Market Data Endpoints
+
+```javascript
+OBinance.testNewOrder("BTCUSDT", "BUY", "LIMIT", 0.001, "GTC").then((result) => {
+  console.log("testNewOrder Result:", result);
+}).catch((err) => {
+  console.log("testNewOrder Error: ", err);
+});
+
+```
+
+
+```javascript
+OBinance.spotMarketBuy("BTCUSDT", 0.001).then((result) => {
+  console.log("spotMarketBuy Result:", result);
+}).catch((err) => {
+  console.log("spotMarketBuy Error: ", err);
+});
+
+```
+
+```javascript
+OBinance.spotMarketSell("BTCUSDT", 0.001).then((result) => {
+  console.log("spotMarketBuy Result:", result);
+}).catch((err) => {
+  console.log("spotMarketBuy Error: ", err);
+});
+
+```
+
+```javascript
+OBinance.spotLimitBuy("BTCUSDT", 0.001, 24000).then((result) => {
+  console.log("spotMarketBuy Result:", result);
+}).catch((err) => {
+  console.log("spotMarketBuy Error: ", err);
+});
+
+```
+
+```javascript
+OBinance.spotLimitSell("BTCUSDT", 0.001, 24000).then((result) => {
+  console.log("spotMarketBuy Result:", result);
+}).catch((err) => {
+  console.log("spotMarketBuy Error: ", err);
+});
+
+```
