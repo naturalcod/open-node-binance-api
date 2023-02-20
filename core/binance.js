@@ -246,6 +246,61 @@ module.exports = class OpenBinance {
   }
 
 
+
+  /**
+   * SPOT : LimitBuy
+   * @param {String} symbol  
+   * @param {Number} quantity
+   * @param {Number} price   
+   * @param {*} options
+   * @returns
+   */
+
+  spotLimitBuy(symbol, quantity, price, options = {timeInForce: 'GTC'}) {
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, side: "BUY", type: "LIMIT", quantity, price, ...options },
+      "POST"
+    );
+  }
+
+
+  /**
+   * SPOT : LimitSell
+   * @param {String} symbol  
+   * @param {Number} quantity
+   * @param {Number} price   
+   * @param {*} options
+   * @returns
+   */
+
+  spotLimitSell(symbol, quantity, price, options = {timeInForce: 'GTC'}) {
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, side: "SELL", type: "LIMIT", quantity, price, ...options },
+      "POST"
+    );
+  }
+
+
+
+
+  /**
+   * Cancel an active order.
+   * @param {*} symbol - symbol
+   * @param {*} orderId - orderId
+   * @param {*} options 
+   * @returns 
+   */
+  spotCancelOrder(symbol, orderId, options = {}) {
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, orderId, ...options },
+      "DELETE"
+    );
+  }
+
+
   // ----------- End Spot Account/Trade Endpoints ---------
 
   /**
