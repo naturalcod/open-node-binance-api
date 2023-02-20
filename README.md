@@ -176,6 +176,9 @@ OBinance.computeStatistics(["BTCUSDT"]).then((result) => {
 
 # Market Data Endpoints
 
+
+
+##### Test new order creation and signature/recvWindow long. Creates and validates a new order but does not send it into the matching engine.
 ```javascript
 OBinance.testNewOrder("BTCUSDT", "BUY", "LIMIT", 0.001, "GTC").then((result) => {
   console.log("testNewOrder Result:", result);
@@ -185,7 +188,7 @@ OBinance.testNewOrder("BTCUSDT", "BUY", "LIMIT", 0.001, "GTC").then((result) => 
 
 ```
 
-
+##### SPOT : MarketBuy   
 ```javascript
 OBinance.spotMarketBuy("BTCUSDT", 0.001).then((result) => {
   console.log("spotMarketBuy Result:", result);
@@ -195,6 +198,8 @@ OBinance.spotMarketBuy("BTCUSDT", 0.001).then((result) => {
 
 ```
 
+
+##### SPOT : MarketSell   
 ```javascript
 OBinance.spotMarketSell("BTCUSDT", 0.001).then((result) => {
   console.log("spotMarketBuy Result:", result);
@@ -204,6 +209,8 @@ OBinance.spotMarketSell("BTCUSDT", 0.001).then((result) => {
 
 ```
 
+
+##### SPOT : LimitBuy
 ```javascript
 OBinance.spotLimitBuy("BTCUSDT", 0.001, 24000).then((result) => {
   console.log("spotMarketBuy Result:", result);
@@ -213,6 +220,8 @@ OBinance.spotLimitBuy("BTCUSDT", 0.001, 24000).then((result) => {
 
 ```
 
+
+##### SPOT : LimitSell
 ```javascript
 OBinance.spotLimitSell("BTCUSDT", 0.001, 24000).then((result) => {
   console.log("spotMarketBuy Result:", result);
