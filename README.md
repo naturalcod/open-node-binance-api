@@ -20,6 +20,31 @@ let OBinance = new OpenBinance(
 
 # Account/Wallet
 
+
+##### Fetch details of assets supported on Binance.
+
+```javascript
+OBinance.assetDetail().then((result) => {
+    console.log("assetDetail Result", result);
+}).catch((err) => {
+    console.log("assetDetail Error: ", err);
+});
+
+```
+
+
+##### Get user assets, just for positive data.
+
+```javascript
+OBinance.getUserAsset().then((result) => {
+    console.log("getUserAsset Result", result);
+}).catch((err) => {
+    console.log("getUserAsset Error: ", err);
+});
+
+```
+
+
 ##### Get Api Restrictions
 
 ```javascript
