@@ -1,8 +1,5 @@
 
-[========]
-
-
-
+&copy; https://nacode.site
 
 [![Open-Binance-Api-Client](https://imageup.ru/img158/4220287/open-binance-api.png "Open-Binance-Api-Client")](https://github.com/naturalcod/open-node-binance-api "Open-Binance-Api-Client")
 
