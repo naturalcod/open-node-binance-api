@@ -317,6 +317,15 @@ module.exports = class OpenBinance {
   }
 
 
+  getOrder(symbol, orderId, options = {}){
+    return this.signedRequest(
+      endpoints.base + "v3/order",
+      { symbol, orderId, ...options },
+      "GET"
+    );
+  }
+
+
   // ----------- End Spot Account/Trade Endpoints ---------
 
   /**
