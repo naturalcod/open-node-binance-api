@@ -202,9 +202,9 @@ OBinance.spotMarketBuy("BTCUSDT", 0.001).then((result) => {
 ##### SPOT : MarketSell   
 ```javascript
 OBinance.spotMarketSell("BTCUSDT", 0.001).then((result) => {
-  console.log("spotMarketBuy Result:", result);
+  console.log("spotMarketSell Result:", result);
 }).catch((err) => {
-  console.log("spotMarketBuy Error: ", err);
+  console.log("spotMarketSell Error: ", err);
 });
 
 ```
@@ -213,9 +213,9 @@ OBinance.spotMarketSell("BTCUSDT", 0.001).then((result) => {
 ##### SPOT : LimitBuy
 ```javascript
 OBinance.spotLimitBuy("BTCUSDT", 0.001, 24000).then((result) => {
-  console.log("spotMarketBuy Result:", result);
+  console.log("spotLimitBuy Result:", result);
 }).catch((err) => {
-  console.log("spotMarketBuy Error: ", err);
+  console.log("spotLimitBuy Error: ", err);
 });
 
 ```
@@ -224,9 +224,42 @@ OBinance.spotLimitBuy("BTCUSDT", 0.001, 24000).then((result) => {
 ##### SPOT : LimitSell
 ```javascript
 OBinance.spotLimitSell("BTCUSDT", 0.001, 24000).then((result) => {
-  console.log("spotMarketBuy Result:", result);
+  console.log("spotLimitSell Result:", result);
 }).catch((err) => {
-  console.log("spotMarketBuy Error: ", err);
+  console.log("spotLimitSell Error: ", err);
+});
+
+```
+
+
+##### Cancel an active order.
+```javascript
+OBinance.spotCancelOrder("BTCUSDT", 123456).then((result) => {
+  console.log("spotCancelOrder Result:", result);
+}).catch((err) => {
+  console.log("spotMarkspotCancelOrderetBuy Error: ", err);
+});
+
+```
+
+
+##### Cancels all active orders on a symbol.
+```javascript
+OBinance.spotCancelAllOrders("BTCUSDT").then((result) => {
+  console.log("spotCancelAllOrders Result:", result);
+}).catch((err) => {
+  console.log("spotCancelAllOrders Error: ", err);
+});
+
+```
+
+
+##### Check an order's status.
+```javascript
+OBinance.getOrder("BTCUSDT", 123456).then((result) => {
+  console.log("getOrder Result:", result);
+}).catch((err) => {
+  console.log("getOrder Error: ", err);
 });
 
 ```
