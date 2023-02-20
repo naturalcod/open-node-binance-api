@@ -37,4 +37,16 @@ OBinance.tradeFee("BTCUSDT").then((result) => {
 }).catch((err) => {
   console.log("tradeFee Error: ", err);
 });
+
+```
+
+
+##### Test connectivity to the Rest API.
+```javascript
+OBinance.ping().then((result) => {
+  console.log("ping Result", result);
+}).catch((err) => {
+  console.log("ping Error: ", err);
+});
+
 ```

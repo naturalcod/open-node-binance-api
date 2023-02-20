@@ -316,7 +316,14 @@ module.exports = class OpenBinance {
     );
   }
 
-
+  /**
+   * Check an order's status.
+   * For more information, see the [Official Binance Api Documentation](https://binance-docs.github.io/apidocs/spot/en/#query-order-user_data).
+   * @param {*} symbol 
+   * @param {*} orderId 
+   * @param {*} options 
+   * @returns 
+   */
   getOrder(symbol, orderId, options = {}){
     return this.signedRequest(
       endpoints.base + "v3/order",
