@@ -58,6 +58,102 @@ module.exports = class OpenBinance {
     return this.publicRequest(endpoints.base + "v3/trades", {symbol, limit}, "GET");
   }
 
+
+   /**
+   * Get compressed, aggregate trades. Trades that fill at the time, from the same order, with the same price will have the quantity aggregated.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#compressed-aggregate-trades-list
+   * @returns 
+   */
+   aggTrades(symbol, options = {}){
+    return this.publicRequest(endpoints.base + "v3/aggTrades", {symbol, ...options}, "GET");
+  }
+
+
+  /**
+   * Kline/candlestick bars for a symbol.
+   * Klines are uniquely identified by their open time.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-data
+   * @returns 
+   */
+  klines(symbol, interval = '1m', options = {}){
+    return this.publicRequest(endpoints.base + "v3/klines", {symbol, interval, ...options}, "GET");
+  }
+
+
+  /**
+   * Kline/candlestick bars for a symbol.
+   * Klines are uniquely identified by their open time.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#uiklines
+   * @returns 
+   */
+  UIKlines(symbol, interval = '1m', options = {}){
+    return this.publicRequest(endpoints.base + "v3/uiKlines", {symbol, interval, ...options}, "GET");
+  }
+
+
+  /**
+   * Kline/candlestick bars for a symbol.
+   * Klines are uniquely identified by their open time.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#current-average-price
+   * @returns 
+   */
+  avgPrice(symbol, options = {}){
+    return this.publicRequest(endpoints.base + "v3/avgPrice", {symbol, ...options}, "GET");
+  }
+
+
+  /**
+   * 24 hour rolling window price change statistics. Careful when accessing this with no symbol.   
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#24hr-ticker-price-change-statistics
+   * @returns 
+   */
+  tickerPrice24hr(symbols = ['BTCUSDT'], options = {}){
+
+    if(typeof symbols === 'string') symbols = [symbols];
+    
+    return this.publicRequest(endpoints.base + "v3/ticker/24hr", {symbols: JSON.stringify(symbols), ...options}, "GET");
+  }
+
+
+  /**
+   * Latest price for a symbol or symbols.   
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#symbol-price-ticker
+   * @returns 
+   */
+  latestPrice(symbols = ['BTCUSDT'], options = {}){
+
+    if(typeof symbols === 'string') symbols = [symbols];
+    
+    return this.publicRequest(endpoints.base + "v3/ticker/price", {symbols: JSON.stringify(symbols), ...options}, "GET");
+  }
+
+
+  /**
+   * Best price/qty on the order book for a symbol or symbols.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#symbol-order-book-ticker
+   * @returns 
+   */
+  bookTicker(symbols = ['BTCUSDT'], options = {}){
+
+    if(typeof symbols === 'string') symbols = [symbols];
+    
+    return this.publicRequest(endpoints.base + "v3/ticker/bookTicker", {symbols: JSON.stringify(symbols), ...options}, "GET");
+  }
+
+
+  /**
+   * Note: This endpoint is different from the tickerPrice24hr() method.
+   * The window used to compute statistics will be no more than 59999ms from the requested windowSize.
+   * Detail https://binance-docs.github.io/apidocs/spot/en/#rolling-window-price-change-statistics
+   * @returns 
+   */
+  computeStatistics (symbols = ['BTCUSDT'], windowSize = '1d', options = {}){
+
+    if(typeof symbols === 'string') symbols = [symbols];
+    
+    return this.publicRequest(endpoints.base + "v3/ticker", {symbols: JSON.stringify(symbols), windowSize, ...options}, "GET");
+  }
+
   /**
    * Fetch details of assets supported on Binance.
    * https://binance-docs.github.io/apidocs/spot/en/#asset-detail-user_data
@@ -289,6 +385,8 @@ module.exports = class OpenBinance {
         : reqObject(url + "?" + query, data, method, this.options);
 
     return new Promise((res) => {
+
+      console.log(opt)
       request(opt, (err, response, body) => {
         if (err) throw Error(err);
 
