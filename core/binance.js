@@ -301,6 +301,22 @@ module.exports = class OpenBinance {
   }
 
 
+  /**
+   * Cancels all active orders on a symbol.
+   * Detail: https://binance-docs.github.io/apidocs/spot/en/#cancel-all-open-orders-on-a-symbol-trade
+   * @param {*} symbol - symbol   
+   * @param {*} options 
+   * @returns 
+   */
+  spotCancelAllOrders(symbol, options = {}) {
+    return this.signedRequest(
+      endpoints.base + "v3/openOrders",
+      { symbol, ...options },
+      "DELETE"
+    );
+  }
+
+
   // ----------- End Spot Account/Trade Endpoints ---------
 
   /**
