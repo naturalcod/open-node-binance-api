@@ -41,6 +41,9 @@ OBinance.tradeFee("BTCUSDT").then((result) => {
 ```
 
 
+# Market Data Endpoints
+
+
 ##### Test connectivity to the Rest API.
 ```javascript
 OBinance.ping().then((result) => {
@@ -174,7 +177,7 @@ OBinance.computeStatistics(["BTCUSDT"]).then((result) => {
 ```
 
 
-# Market Data Endpoints
+# Spot Account/Trade Endpoints
 
 
 
