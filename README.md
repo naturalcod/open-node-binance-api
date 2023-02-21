@@ -34,6 +34,18 @@ OBinance.assetDetail().then((result) => {
 ```
 
 
+##### Univarsal Tranfser (BETWEEN WALLETS)
+
+```javascript
+OBinance.universalTransfer("MAIN_FUNDING", "USDT", 10).then((result) => {
+    console.log("universalTransfer Result", result);
+}).catch((err) => {
+    console.log("universalTransfer Error: ", err);
+});
+
+```
+
+
 ##### Get user assets, just for positive data.
 
 ```javascript
@@ -289,6 +301,40 @@ OBinance.getOrder("BTCUSDT", 123456).then((result) => {
   console.log("getOrder Result:", result);
 }).catch((err) => {
   console.log("getOrder Error: ", err);
+});
+
+```
+
+
+##### Get trades for a specific account and symbol.
+```javascript
+OBinance.myTrades("BTCUSDT").then((result) => {
+  console.log("myTrades Result:", result);
+}).catch((err) => {
+  console.log("myTrades Error: ", err);
+});
+
+```
+
+
+
+##### Displays the user's current order count usage for all intervals.
+```javascript
+OBinance.rateLimitOrder().then((result) => {
+  console.log("rateLimitOrder Result:", result);
+}).catch((err) => {
+  console.log("rateLimitOrder Error: ", err);
+});
+
+```
+
+
+##### Displays the list of orders that were expired because of STP trigger.
+```javascript
+OBinance.myPreventedMatches("BTCUSDT", {orderId: 1111}).then((result) => {
+  console.log("myPreventedMatches Result:", result);
+}).catch((err) => {
+  console.log("myPreventedMatches Error: ", err);
 });
 
 ```

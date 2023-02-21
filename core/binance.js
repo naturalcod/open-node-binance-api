@@ -14,6 +14,8 @@ module.exports = class OpenBinance {
     };
   }
 
+  
+
   // ----------- Market Data Endpoints ---------
 
   /**
@@ -327,6 +329,59 @@ module.exports = class OpenBinance {
     return this.signedRequest(
       endpoints.base + "v3/order",
       { symbol, orderId, ...options },
+      "GET"
+    );
+  }
+
+
+  /**
+   * Get trades for a specific account and symbol.
+   * For more information, see the [Official Binance Api Documentation](https://binance-docs.github.io/apidocs/spot/en/#account-trade-list-user_data).
+   * @param {*} symbol     
+   * @param {*} options 
+   * @returns 
+   */
+  myTrades(symbol, options = {}){
+    return this.signedRequest(
+      endpoints.base + "v3/myTrades",
+      { symbol, ...options },
+      "GET"
+    );
+  }
+
+
+  /**
+   * Displays the user's current order count usage for all intervals.
+   * For more information, see the [Official Binance Api Documentation](https://binance-docs.github.io/apidocs/spot/en/#query-current-order-count-usage-trade).    
+   * @param {*} options 
+   * @returns 
+   */
+  rateLimitOrder(options = {}){
+    return this.signedRequest(
+      endpoints.base + "v3/rateLimit/order",
+      options,
+      "GET"
+    );
+  }
+
+
+  /**
+   * Displays the list of orders that were expired because of STP trigger.
+   * For more information, see the [Official Binance Api Documentation](https://binance-docs.github.io/apidocs/spot/en/#query-prevented-matches-user_data).    
+   * These are the combinations supported:
+      symbol + preventedMatchId
+      symbol + orderId
+      symbol + orderId + fromPreventedMatchId (limit will default to 500)
+      symbol + orderId + fromPreventedMatchId + limit
+      
+   * @param {*} symbol    
+   * @param {*} options 
+   * @returns 
+   */
+  myPreventedMatches(symbol, options = {}){
+    return this.signedRequest(
+      endpoints.base + "v3/myPreventedMatches",
+      {symbol,...options},
       "GET"
     );
   }
