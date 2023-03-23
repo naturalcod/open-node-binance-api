@@ -373,7 +373,7 @@ module.exports = class OpenBinance {
       symbol + orderId
       symbol + orderId + fromPreventedMatchId (limit will default to 500)
       symbol + orderId + fromPreventedMatchId + limit
-      
+
    * @param {*} symbol    
    * @param {*} options 
    * @returns 
@@ -388,6 +388,31 @@ module.exports = class OpenBinance {
 
 
   // ----------- End Spot Account/Trade Endpoints ---------
+
+
+  // ----------- Futures ---------
+
+
+  /**
+   * Execute transfer between spot account and futures account.
+   * https://binance-docs.github.io/apidocs/spot/en/#new-future-account-transfer-user_data
+   * @param { String } asset
+   * @returns
+   */
+  futuresTransfer  = (asset, amount, type, options ={}) => {
+    this.authDataRequire();
+
+    return this.signedRequest(
+      endpoints.sapi + "v1/futures/transfer",
+      {asset, amount, type, ...options},
+      "POST"
+    );
+  };
+
+
+  // ----------- End Futures ---------
+
+
 
   /**
    * Fetch details of assets supported on Binance.

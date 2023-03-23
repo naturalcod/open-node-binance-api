@@ -25,7 +25,7 @@ let OBinance = new OpenBinance(
 ##### Fetch details of assets supported on Binance.
 
 ```javascript
-OBinance.assetDetail().then((result) => {
+await OBinance.assetDetail().then((result) => {
     console.log("assetDetail Result", result);
 }).catch((err) => {
     console.log("assetDetail Error: ", err);
